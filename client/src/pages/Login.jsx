@@ -29,7 +29,20 @@ const Login = () => {
     if (data.token) {
         localStorage.setItem("token", data.token);
       }
-
+        fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        })
+        .then(res => res.json())
+        .then (data => {
+          console.log(data);          
+        })
+        })
     navigate("/dashboard");
     } catch (error) {
     alert("Login failed. Check your credentials.");

@@ -1,13 +1,18 @@
 {
   "dependencies": {
     "cors": "^2.8.6",
-  "mongoose": "^9.2.4"
+    "express": "^5.2.1",
+    "mongoose": "^9.2.4"
   },
-
   "name": "my-node-project",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
-  }
+  },
+  "description": "",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
 }
