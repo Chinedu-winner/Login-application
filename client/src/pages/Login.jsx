@@ -4,75 +4,45 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
-
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
   const handleChange = (e) => {
-    setFormData({
-    ...formData,
-    [e.target.name]: e.target.value,
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-    const data = await loginUser(formData);
-
-    console.log("Login success:", data);
-
-    if (data.token) {
+      const data = await loginUser(formData); 
+      if (data.token) {
         localStorage.setItem("token", data.token);
-        const isMatch = await bcrypt.compare(inputPassword, user.password);
+        navigate("/dashboard"); 
+      } else {
+        alert("Login failed. Check your credentials.");
       }
-        fetch("http://localhost:5000/api/auth/login", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        })
-        .then(res => res.json())
-        .then (data => {
-          console.log(data);          
-        })
-        
-        })
-    navigate("/dashboard");
     } catch (error) {
-    alert("Login failed. Check your credentials.");
+      console.error(error);
+      alert("Login failed. Check your credentials.");
     }
-};
+  };
 
-return (
-    <div style={{ textAlign: "center", marginTop: "100px" }}>
-    <h2>Login</h2>
-
-    <form onSubmit={handleSubmit}>
-        <input  type="email"  name="email"  placeholder="Email"  onChange={handleChange}  required/>
-        <br />
-        <br />
-
-        <input type="password" name="password" placeholder="Password" onChange={handleChange} required/>
-
-        <br />
-        <br />
-
+  return (
+    <div style={{ textAlign: "center", marginTop: "100px", backgroundColor: "white" }}>
+      <h2>Login</h2>
+      <form onSubmit={handleSubmit}>
+        <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
+        <br /><br />
+        <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
+        <br /><br />
         <button type="submit">Login</button>
-    </form>
-
-    <br />
-
-    <p>Don't have an account? <Link to="/signup">Signup</Link></p>
+      </form>
+      <br />
+      <p>Don't have an account? <Link to="/signup">Signup</Link></p>
     </div>
-);
+  );
 };
 
 export default Login;
