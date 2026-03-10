@@ -14,7 +14,8 @@ export default function Signup() {
 
     const handleChange = (e) => {
         const { name, value } = e.target
-        setFormData(prev => ({ ...prev, [name]: value }))
+        setFormData(prev => ({ ...prev, [name]: value })
+    )
     }
 
     const handleSubmit = async (e) => {
@@ -31,7 +32,8 @@ export default function Signup() {
             setMessage({ type: 'error', text: errorMsg })
         } finally {
             setLoading(false)
-        }
+        } 
+        user.password = await bcrypt.hash(user.password, 10);
     }
     return (
         <div className='flex justify-center items-center min-h-screen bg-gray-100'>

@@ -17,6 +17,7 @@ const Login = () => {
     });
   };
 
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -25,9 +26,9 @@ const Login = () => {
 
     console.log("Login success:", data);
 
-      // store token if backend returns it
     if (data.token) {
         localStorage.setItem("token", data.token);
+        const isMatch = await bcrypt.compare(inputPassword, user.password);
       }
         fetch("http://localhost:5000/api/auth/login", {
         method: "POST",
@@ -42,6 +43,7 @@ const Login = () => {
         .then (data => {
           console.log(data);          
         })
+        
         })
     navigate("/dashboard");
     } catch (error) {
